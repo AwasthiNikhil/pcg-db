@@ -29,7 +29,7 @@ class UserSettingSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'user_id' => 1,
+                'user_id' =>2,
                 'master_volume' => 80,
                 'music_volume' => 60,
                 'sfx_volume' => 70,

@@ -21,28 +21,37 @@ class UserSettingController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
-            'master_volume' => 'nullable|integer|min:0|max:100',
-            'music_volume' => 'nullable|integer|min:0|max:100',
-            'sfx_volume' => 'nullable|integer|min:0|max:100',
-            'keyboard_bindings' => 'nullable|array',
-        ]);
 
-        $settings = UserSetting::firstOrCreate(
-            ['user_id' => Auth::id()],
-            ['master_volume' => 100, 'music_volume' => 100, 'sfx_volume' => 100]
-        );
+        $user = $request->user();
 
-        $settings->update([
-            'master_volume' => $request->master_volume ?? $settings->master_volume,
-            'music_volume' => $request->music_volume ?? $settings->music_volume,
-            'sfx_volume' => $request->sfx_volume ?? $settings->sfx_volume,
-            'keyboard_bindings' => $request->keyboard_bindings ?? $settings->keyboard_bindings,
-        ]);
+        if ($user) {
+            $request->validate([
+                'master_volume' => 'nullable|integer|min:0|max:100',
+                'music_volume' => 'nullable|integer|min:0|max:100',
+                'sfx_volume' => 'nullable|integer|min:0|max:100',
+                'keyboard_bindings' => 'array',
+            ]);
 
-        return response()->json([
-            'message' => 'Settings updated successfully.',
-            'data' => $settings,
-        ]);
+            UserSetting::where('id', $user->id)->update([
+                'master_volume' => $request->master_volume ?? $request->master_volume,
+                'music_volume' => $request->music_volume ?? $request->music_volume,
+                'sfx_volume' => $request->sfx_volume ?? $request->sfx_volume,
+                'keyboard_bindings' => $request->keyboard_bindings,
+            ]);
+
+            return response()->json([
+                'message' => 'Settings updated successfully.',
+                'data' => $request->only([
+                    'master_volume',
+                    'music_volume',
+                    'sfx_volume',
+                    'keyboard_bindings'
+                ])
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'No user found'
+            ]);
+        }
     }
 }
