@@ -44,7 +44,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('settings', [UserSettingController::class, 'update']);
 });
 
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('items', [ItemController::class, 'index']);
     Route::get('items/{id}', [ItemController::class, 'show']);
