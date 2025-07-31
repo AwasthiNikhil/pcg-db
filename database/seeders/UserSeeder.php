@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -32,5 +33,152 @@ class UserSeeder extends Seeder
             'coins' => 500,
             'last_login'=> now(),
         ]);
+
+        $users = [
+            [
+                'username' => 'alice',
+                'password' => Hash::make('password'),
+                'coins' => 100,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'bob',
+                'password' => Hash::make('password'),
+                'coins' => 250,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'charlie',
+                'password' => Hash::make('password'),
+                'coins' => 500,
+                'last_login' => now(),
+                'status' => 'banned',
+            ],
+            [
+                'username' => 'diana',
+                'password' => Hash::make('password'),
+                'coins' => 75,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'eve',
+                'password' => Hash::make('password'),
+                'coins' => 0,
+                'last_login' => now(),
+                'status' => 'banned',
+            ],
+            [
+                'username' => 'frank',
+                'password' => Hash::make('password'),
+                'coins' => 30,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'grace',
+                'password' => Hash::make('password'),
+                'coins' => 800,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'henry',
+                'password' => Hash::make('password'),
+                'coins' => 150,
+                'last_login' => now(),
+                'status' => 'banned',
+            ],
+            [
+                'username' => 'irene',
+                'password' => Hash::make('password'),
+                'coins' => 90,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'jack',
+                'password' => Hash::make('password'),
+                'coins' => 60,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'kate',
+                'password' => Hash::make('password'),
+                'coins' => 10,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'leo',
+                'password' => Hash::make('password'),
+                'coins' => 500,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'mia',
+                'password' => Hash::make('password'),
+                'coins' => 5,
+                'last_login' => now(),
+                'status' => 'banned',
+            ],
+            [
+                'username' => 'nick',
+                'password' => Hash::make('password'),
+                'coins' => 200,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'olivia',
+                'password' => Hash::make('password'),
+                'coins' => 300,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'peter',
+                'password' => Hash::make('password'),
+                'coins' => 110,
+                'last_login' => now(),
+                'status' => 'banned',
+            ],
+            [
+                'username' => 'quincy',
+                'password' => Hash::make('password'),
+                'coins' => 0,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'rachel',
+                'password' => Hash::make('password'),
+                'coins' => 75,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+            [
+                'username' => 'steve',
+                'password' => Hash::make('password'),
+                'coins' => 400,
+                'last_login' => now(),
+                'status' => 'banned',
+            ],
+            [
+                'username' => 'tina',
+                'password' => Hash::make('password'),
+                'coins' => 600,
+                'last_login' => now(),
+                'status' => 'active',
+            ],
+        ];
+
+        foreach ($users as $user) {
+            DB::table('users')->insert($user);
+        }
     }
 }
