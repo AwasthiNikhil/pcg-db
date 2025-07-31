@@ -7,6 +7,7 @@ use App\Http\Controllers\UserSettingController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserItemController;
 use App\Http\Controllers\Admin\PlayerController;
+use App\Http\Controllers\Admin\SkinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,3 +64,7 @@ Route::middleware('auth:sanctum')->group(function () {
 /* Admin routes from here on */
 Route::get('/players', [PlayerController::class, 'getAllPlayers']);
 Route::post('/players/{player}/{action}', [PlayerController::class, 'toggleBanPlayer']);
+
+Route::get('/skins', [SkinController::class, 'index']);
+Route::post('/skins', [SkinController::class, 'store']);
+Route::post('/skins/{skin}/{action}', [SkinController::class, 'toggleDelete']);

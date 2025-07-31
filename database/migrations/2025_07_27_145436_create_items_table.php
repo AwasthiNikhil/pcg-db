@@ -18,7 +18,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->unsignedInteger('price')->default(10);
             $table->unsignedTinyInteger('rarity')->default(10);
+            $table->string('image_path')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
     }
