@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\UserSetting;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UserSettingSeeder extends Seeder
 {
@@ -12,12 +13,12 @@ class UserSettingSeeder extends Seeder
      */
     public function run(): void
     {
-        UserSetting::insert([
-            [
-                'user_id' => 1,
-                'master_volume' => 80,
-                'music_volume' => 60,
-                'sfx_volume' => 70,
+        for ($userId = 1; $userId <= 22; $userId++) {
+            DB::table('user_settings')->insert([
+                'user_id' => $userId,
+                'master_volume' => 50,
+                'music_volume' => 100,
+                'sfx_volume' => 100,
                 'keyboard_bindings' => json_encode([
                     'move_left' => 'A',
                     'move_right' => 'D',
@@ -27,22 +28,7 @@ class UserSettingSeeder extends Seeder
                 ]),
                 'created_at' => now(),
                 'updated_at' => now()
-            ],
-            [
-                'user_id' =>2,
-                'master_volume' => 80,
-                'music_volume' => 60,
-                'sfx_volume' => 70,
-                'keyboard_bindings' => json_encode([
-                    'move_left' => 'A',
-                    'move_right' => 'D',
-                    'jump' => 'W',
-                    'shoot' => 'Space',
-                    'place_wall' => 'E',
-                ]),
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-        ]);
+            ]);
+        }
     }
 }
