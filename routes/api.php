@@ -6,6 +6,7 @@ use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\UserSettingController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserItemController;
+use App\Http\Controllers\Admin\PlayerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use App\Http\Controllers\UserItemController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return response()->json(['message' => 'Welcome to the API!']);
 });
@@ -56,3 +58,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('inventory/remove', [UserItemController::class, 'removeItem']);
 });
 
+
+
+/* Admin routes from here on */
+Route::get('/players', [PlayerController::class, 'getAllPlayers']);
+Route::post('/players/{player}/{action}', [PlayerController::class, 'toggleBanPlayer']);

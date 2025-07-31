@@ -23,12 +23,14 @@ class UserSeeder extends Seeder
             'username' => 'player1',
             'password' => Hash::make('password'),
             'coins' => 1000,
+            'last_login'=> now(),
         ]);
 
         User::create([
             'username' => 'player2',
             'password' => Hash::make('password'),
             'coins' => 500,
+            'last_login'=> now(),
         ]);
     }
 }

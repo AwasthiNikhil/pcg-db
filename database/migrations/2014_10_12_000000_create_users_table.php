@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->integer('coins')->default(0);
+            $table->timestamp('last_login')->default(now());
+            $table->string('status')->default('active'); // active || banned
             $table->rememberToken();
             $table->timestamps();
         });

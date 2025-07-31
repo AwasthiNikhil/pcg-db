@@ -20,6 +20,8 @@ class User extends Authenticatable
         'username',
         'password',
         'coins',
+        'status',
+        'last_login',
     ];
 
     /**

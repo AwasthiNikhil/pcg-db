@@ -23,6 +23,7 @@ class AuthController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'coins' => 0,
+            'last_login'=> now(),
         ]);
 
         UserSetting::insert([
