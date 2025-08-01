@@ -36,3 +36,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         })->name('dashboard');
     });
 });
+
+Route::get('send-mail', function () {
+    $details = [
+        'title' => 'Success',
+        'content' => 'This is an email testing using Laravel-Brevo',
+    ];
+
+    \Mail::to('maerudite.1.1@gmail.com')->send(new \App\Mail\TestMail($details));
+
+    return 'Email sent at ' . now();
+});

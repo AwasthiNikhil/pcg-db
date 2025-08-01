@@ -13,19 +13,22 @@ class AuthController extends Controller
     // Register new user
     public function register(Request $request)
     {
-
         $request->validate([
             'username' => 'required|unique:users,username',
             'password' => 'required|min:6',
+            'email' => 'required|email|unique:users,email',
+            'country' => 'required',
+            'avatar' => 'required'
         ]);
-
         $user = User::create([
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'coins' => 0,
+            'email' => $request->email,
+            'country' => $request->country,
+            'avatar' => $request->avatar,
             'last_login'=> now(),
         ]);
-
         UserSetting::insert([
             'user_id' => $user->id,
             'master_volume' => 80,
@@ -37,6 +40,7 @@ class AuthController extends Controller
                 'jump' => 'W',
                 'shoot' => 'Space',
                 'place_wall' => 'E',
+                'place_wall_below' => 'Q',
             ])
         ]);
 

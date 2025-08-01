@@ -25,6 +25,7 @@ class UserSettingSeeder extends Seeder
                     'jump' => 'W',
                     'shoot' => 'Space',
                     'place_wall' => 'E',
+                    'place_wall_below' => 'Q',
                 ]),
                 'created_at' => now(),
                 'updated_at' => now()

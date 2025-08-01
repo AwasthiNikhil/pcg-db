@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
+            $table->string('email');
+            $table->string('country');
+            $table->string('avatar');
             $table->integer('coins')->default(0);
             $table->timestamp('last_login')->default(now());
             $table->string('status')->default('active'); // active || banned
