@@ -19,14 +19,9 @@ class UserSettingSeeder extends Seeder
                 'master_volume' => 50,
                 'music_volume' => 100,
                 'sfx_volume' => 100,
-                'keyboard_bindings' => json_encode([
-                    'move_left' => 'A',
-                    'move_right' => 'D',
-                    'jump' => 'W',
-                    'shoot' => 'Space',
-                    'place_wall' => 'E',
-                    'place_wall_below' => 'Q',
-                ]),
+                'keyboard_bindings' => json_encode(
+                    ['jump' => 87, 'shoot' => 32, 'move_left' => 65, 'move_right' => 68, 'place_wall' => 69, 'place_wall_below' => 83]
+                ),
                 'created_at' => now(),
                 'updated_at' => now()
             ]);

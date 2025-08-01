@@ -27,21 +27,17 @@ class AuthController extends Controller
             'email' => $request->email,
             'country' => $request->country,
             'avatar' => $request->avatar,
-            'last_login'=> now(),
+            'last_login' => now(),
         ]);
         UserSetting::insert([
             'user_id' => $user->id,
             'master_volume' => 80,
             'music_volume' => 60,
             'sfx_volume' => 70,
-            'keyboard_bindings' => json_encode([
-                'move_left' => 'A',
-                'move_right' => 'D',
-                'jump' => 'W',
-                'shoot' => 'Space',
-                'place_wall' => 'E',
-                'place_wall_below' => 'Q',
-            ])
+            'keyboard_bindings' => json_encode(
+                ['jump' => 87, 'shoot' => 32, 'move_left' => 65, 'move_right' => 68, 'place_wall' => 69, 'place_wall_below' => 83]
+            )
+
         ]);
 
         // Create token for API authentication
