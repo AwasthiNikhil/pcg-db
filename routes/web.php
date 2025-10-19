@@ -47,3 +47,4 @@ Route::get('send-mail', function () {
 
     return 'Email sent at ' . now();
 });
+
