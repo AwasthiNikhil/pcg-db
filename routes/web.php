@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SkinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +48,5 @@ Route::get('send-mail', function () {
 
     return 'Email sent at ' . now();
 });
+
 

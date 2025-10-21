@@ -59,17 +59,26 @@ class AuthController extends Controller
 
         $user = User::where('username', $request->username)->first();
 
+
         if (! $user || ! Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'username' => ['The provided credentials are incorrect.'],
-            ]);
+            return response()->json([
+                'message' => ['The provided credentials are incorrect.'],
+            ], 401);
+        }
+        if ($user && $user->status !== 'active') {
+            return response()->json([
+                'message' => ['User is banned. Contact admin.'],
+            ], 401);
         }
 
+        $user->last_login = now();
+        $user->save();
         // Revoke old tokens if needed
         $user->tokens()->delete();
 
         // Create new token
         $token = $user->createToken('api-token')->plainTextToken;
+
 
         return response()->json([
             'user' => $user,
@@ -80,6 +89,8 @@ class AuthController extends Controller
     // Get authenticated user info
     public function user(Request $request)
     {
+        $request->user->last_login = now();
+        $request->user->save();
         return response()->json($request->user());
     }
 

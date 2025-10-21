@@ -13,7 +13,7 @@ class ItemController extends Controller
         return response()->json(Item::all());
     }
 
-    // Get single item by ID (optional)
+    // Get single item by ID
     public function show($id)
     {
         $item = Item::find($id);

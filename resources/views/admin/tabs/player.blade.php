@@ -60,6 +60,13 @@
                 const row = document.createElement('tr');
                 row.classList.add('border-b');
 
+                const isActive = player.last_login && (new Date() - new Date(player.last_login) < 5 * 60 * 1000);
+                if (isActive) {
+                    row.classList.add('bg-green-100');
+                }else{
+                    row.classList.add('bg-red-100');
+
+                }
                 row.innerHTML = `
                 <td class="py-2 px-4 text-center">${player.username}</td>
                 <td class="py-2 px-4 text-center">${player.total_score}</td>

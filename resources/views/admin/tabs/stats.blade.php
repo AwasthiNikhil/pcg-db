@@ -1,1 +1,5 @@
-<div>Stats</div>
+<div>
+    Stats
+    10 players online
+
+</div>
