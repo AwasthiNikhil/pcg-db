@@ -60,7 +60,7 @@ class AuthController extends Controller
         $user = User::where('username', $request->username)->first();
 
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => ['The provided credentials are incorrect.'],
             ], 401);
@@ -79,7 +79,7 @@ class AuthController extends Controller
         // Create new token
         $token = $user->createToken('api-token')->plainTextToken;
 
-
+        $user->avatar = $user->avatar . '.png';
         return response()->json([
             'user' => $user,
             'token' => $token,
@@ -89,8 +89,8 @@ class AuthController extends Controller
     // Get authenticated user info
     public function user(Request $request)
     {
-        $request->user->last_login = now();
-        $request->user->save();
+        $request->user()->last_login = now();
+        $request->user()->save();
         return response()->json($request->user());
     }
 
@@ -101,6 +101,7 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Logged out']);
     }
+    // add coin to player
     public function addCoin(Request $request)
     {
         $request->validate([
@@ -112,5 +113,29 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json(['message' => 'Coins added successfully', 'coins' => $user->coins], 200);
+    }
+
+    // change user password
+    public function changePassword(Request $request)
+    {
+
+        try {
+            $request->validate([
+                'old_password' => 'required',
+                'new_password' => 'required|min:6|different:old_password',
+            ]);
+
+            $user = $request->user();
+            if (!Hash::check($request->old_password, $user->password)) {
+                return response()->json([
+                    'message' => 'The current password is incorrect.'
+                ],422);
+            }
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            return response()->json(['message' => 'Password changed successfully'], 200);
+        } catch (ValidationException $e) {
+            return response()->json(['message' => 'Error password.'], 422);
+        }
     }
 }

@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [AuthController::class, 'user']);
     Route::post('addCoin', [AuthController::class, 'addCoin']);
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('change-password', [AuthController::class, 'changePassword']);
 });
 
 //score routes
@@ -60,7 +61,6 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-
 /* Admin routes from here on */
 Route::get('/players', [PlayerController::class, 'getAllPlayers']);
 Route::post('/players/{player}/{action}', [PlayerController::class, 'toggleBanPlayer']);
@@ -69,16 +69,3 @@ Route::get('/skins', [SkinController::class, 'index']);
 Route::post('/skins', [SkinController::class, 'store']);
 Route::post('/skins/{skin}/{action}', [SkinController::class, 'toggleDelete']);
 
-
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return response()->json(['message' => 'Email verified successfully']);
-})->middleware(['auth:sanctum', 'signed'])->name('verification.verify');
-
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return response()->json(['message' => 'Verification link sent']);
-})->middleware(['auth:sanctum', 'throttle:6,1'])->name('verification.send');
