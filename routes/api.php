@@ -31,6 +31,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [AuthController::class, 'user']);
     Route::post('addCoin', [AuthController::class, 'addCoin']);
+    Route::post('subCoin', [AuthController::class, 'subCoin']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('change-password', [AuthController::class, 'changePassword']);
 });
@@ -58,6 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('inventory', [UserItemController::class, 'index']);
     Route::post('inventory', [UserItemController::class, 'addItem']);
     Route::post('inventory/remove', [UserItemController::class, 'removeItem']);
+    Route::post('inventory/spend', [UserItemController::class, 'spend']);
 });
 
 

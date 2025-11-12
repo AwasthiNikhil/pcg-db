@@ -59,7 +59,6 @@ class AuthController extends Controller
 
         $user = User::where('username', $request->username)->first();
 
-
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => ['The provided credentials are incorrect.'],
@@ -91,6 +90,7 @@ class AuthController extends Controller
     {
         $request->user()->last_login = now();
         $request->user()->save();
+        $request->user()->avatar = $request->user()->avatar . '.png';
         return response()->json($request->user());
     }
 
@@ -113,6 +113,19 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json(['message' => 'Coins added successfully', 'coins' => $user->coins], 200);
+    }
+    // add coin to player
+    public function subCoin(Request $request)
+    {
+        $request->validate([
+            'coins' => 'required|integer',
+        ]); 
+
+        $user = $request->user();
+        $user->coins -= $request->coins;
+        $user->save();
+
+        return response()->json(['message' => 'Coins removed successfully', 'coins' => $user->coins], 200);
     }
 
     // change user password

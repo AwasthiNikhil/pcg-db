@@ -79,4 +79,72 @@ class UserItemController extends Controller
 
         return response()->json(['message' => 'Item quantity updated']);
     }
+    public function spend(Request $request)
+    {
+        $user = Auth::user();
+
+        // 1. Validate the input
+        $validated = $request->validate([
+            'spent_items' => 'required|array|min:1',
+            'spent_items.*.item_id' => 'required|integer|exists:items,id',
+            'spent_items.*.quantity' => 'required|integer|min:1',
+        ]);
+
+        $spentItems = $validated['spent_items'];
+
+        $errors = [];
+        $success = [];
+
+        foreach ($spentItems as $entry) {
+            $itemId = $entry['item_id'];
+            $quantity = $entry['quantity'];
+
+            $userItem = UserItem::where('user_id', $user->id)
+                ->where('item_id', $itemId)
+                ->first();
+
+            if (!$userItem) {
+                $errors[] = [
+                    'item_id' => $itemId,
+                    'message' => 'Item not found in inventory.'
+                ];
+                continue;
+            }
+
+            if ($userItem->quantity < $quantity) {
+                $errors[] = [
+                    'item_id' => $itemId,
+                    'message' => 'Not enough quantity to spend.'
+                ];
+                continue;
+            }
+
+            // Deduct the quantity
+            $userItem->quantity -= $quantity;
+            if ($userItem->quantity <= 0) {
+                $userItem->delete(); // remove record if empty
+            } else {
+                $userItem->save();
+            }
+
+            $success[] = [
+                'item_id' => $itemId,
+                'spent' => $quantity
+            ];
+        }
+
+        // 2. Handle response
+        if (!empty($errors)) {
+            return response()->json([
+                'message' => 'Some items could not be spent.',
+                'success' => $success,
+                'errors' => $errors
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => 'Items spent successfully.',
+            'spent' => $success
+        ], 200);
+    }
 }

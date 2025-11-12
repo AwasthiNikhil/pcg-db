@@ -17,7 +17,7 @@ class Item extends Model
         'description',
         'price',
         'rarity',
-        'image_path',
+        'image_path'
     ];
 
     public function userItems()
