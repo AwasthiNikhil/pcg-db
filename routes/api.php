@@ -7,7 +7,8 @@ use App\Http\Controllers\UserSettingController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserItemController;
 use App\Http\Controllers\Admin\PlayerController;
-use App\Http\Controllers\Admin\SkinController;
+use App\Http\Controllers\Admin\StatController;
+use App\Http\Controllers\Admin\TopupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +68,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/players', [PlayerController::class, 'getAllPlayers']);
 Route::post('/players/{player}/{action}', [PlayerController::class, 'toggleBanPlayer']);
 
-Route::get('/skins', [SkinController::class, 'index']);
-Route::post('/skins', [SkinController::class, 'store']);
-Route::post('/skins/{skin}/{action}', [SkinController::class, 'toggleDelete']);
+Route::get('/admin/stats', [StatController::class, 'getStats']);
+
+Route::get('/admin/users/search', [TopupController::class, 'searchUsers']);
+Route::post('/admin/topup', [TopupController::class, 'addCoins']);
 

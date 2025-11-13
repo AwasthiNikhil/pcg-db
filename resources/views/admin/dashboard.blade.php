@@ -37,8 +37,7 @@
             <button id="tab2"
                 class="tab-button flex-1 py-2 text-lg font-semibold text-black hover:text-white hover:bg-black transition">Players</button>
             <button id="tab3"
-                class="tab-button flex-1 py-2 text-lg font-semibold text-black hover:text-white hover:bg-black transition">Skin
-                Management</button>
+                class="tab-button flex-1 py-2 text-lg font-semibold text-black hover:text-white hover:bg-black transition">Top-up</button>
         </div>
 
         <!-- Tab Content -->
@@ -51,7 +50,7 @@
         </div>
 
         <div class="tab-content" id="content-tab3">
-            @include('admin.tabs.skin')
+            @include('admin.tabs.topup')
         </div>
     </div>
     <script>

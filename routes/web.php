@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\SkinController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +33,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('auth:admin')->group(function () {
         Route::get('dashboard', function () {
-            return view('admin.dashboard');
+            $totalPlayers = User::count();
+            return view('admin.dashboard', compact('totalPlayers'));
         })->name('dashboard');
     });
 });
