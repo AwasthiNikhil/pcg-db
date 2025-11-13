@@ -121,7 +121,7 @@ class UserItemController extends Controller
 
             // Deduct the quantity
             $userItem->quantity -= $quantity;
-            if ($userItem->quantity <= 0) {
+            if ($userItem->quantity <= 0) {gemini
                 $userItem->delete(); // remove record if empty
             } else {
                 $userItem->save();
